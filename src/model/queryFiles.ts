@@ -21,11 +21,14 @@ function tryError(
 }
 
 export class PrismaHelper {
-	constructor(private prismaClient: PrismaClient) {}
+	constructor() {}
 
 	@tryError
-	async crudGeneral(callback: (client: PrismaClient) => Promise<any>) {
-		return await callback(this.prismaClient);
+	async crudGeneral(
+		client: PrismaClient,
+		callback: (client: PrismaClient) => Promise<any>,
+	) {
+		return await callback(client);
 	}
 
 	// Apply the decorator to other methods if necessary.
