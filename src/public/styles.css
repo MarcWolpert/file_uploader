@@ -1,0 +1,34 @@
+body {
+	color: black;
+	background-color: white;
+	display: block;
+	min-width: 360px;
+}
+h1 {
+	text-align: center;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	h2 {
+		text-align: center;
+	}
+	> * {
+		width: 40ch;
+	}
+	button {
+		margin-top: 1rem;
+	}
+	input {
+		margin-bottom: 1rem;
+	}
+}
+a {
+	float: left;
+	/* position: absolute;
+	top: 0;
+	left: 0; */
+	margin: 1rem;
+}

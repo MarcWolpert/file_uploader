@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title><%= title %></title>
+		<link rel="stylesheet" href="./styles.css" />
+	</head>
+	<body>
+		<!-- Will make the input form and method POST to deposit it in 
+         the database, captured by express, in app.POST('/create') -->
+		<h1><%= title %></h1>
+		<%- include('partials/errors.ejs') %>
+		<form action="/search" method="POST">
+			<label for="firstName">First Name: </label>
+			<input type="text" name="firstName" id="firstName" />
+			<label for="lastName">Last Name: </label>
+			<input type="text" name="lastName" id="lastName" />
+			<label for="email">Email: </label>
+			<input type="text" name="email" id="email" />
+			<button type="submit">Submit</button>
+		</form>
+		<a href="/">Back to home</a>
+	</body>
+</html>

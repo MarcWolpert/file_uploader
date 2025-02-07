@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "NodeNext",
+		"rootDir": "./src",
+		"lib": ["ESNext"],
+		"sourceMap": true,
+		"outDir": "./build",
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"moduleResolution": "nodenext",
+		"experimentalDecorators": true
+	},
+	"include": ["src/**/*"]
+}
