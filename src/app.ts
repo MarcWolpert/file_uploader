@@ -9,6 +9,7 @@ import { passport_init as passport } from './authentication/auth.js';
 import bcrypt from 'bcryptjs';
 import { usersRouter } from './routes/usersRouter.js';
 
+
 //setup middleware
 const app = express();
 app.set('view engine', 'ejs');
@@ -24,6 +25,8 @@ app.use(
 );
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+//add file/files object to the request object
+
 app.use(express.static(path.join(process.cwd(), 'src/public/')));
 
 app.use((req, res, next) => {

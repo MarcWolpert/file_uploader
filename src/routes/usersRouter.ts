@@ -27,13 +27,13 @@ usersRouter.post('/sign-up', async (req, res, next) => {
 		return next(err);
 	}
 });
-usersRouter.post(
-	'/log-in',
+usersRouter.post('/log-in', (req: Request, res: Response) => {
+	const user = req.body.user;
 	passport.authenticate('local', {
-		successRedirect: '/:username/files',
+		successRedirect: '/:user/files',
 		failureRedirect: '/',
-	}),
-);
+	});
+});
 
 usersRouter.get('/log-out', (req, res, next) => {
 	req.logout((err) => {
