@@ -8,10 +8,11 @@ import { prisma } from './model/prismaInit.js';
 import { passport_init as passport } from './authentication/auth.js';
 import bcrypt from 'bcryptjs';
 import { usersRouter } from './routes/usersRouter.js';
-
+import morgan from 'morgan';
 
 //setup middleware
 const app = express();
+app.use(morgan('combined'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(import.meta.dirname, '../src/views'));
 
