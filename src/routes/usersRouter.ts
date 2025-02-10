@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { passport_init as passport } from '../authentication/auth.js';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import { prisma } from '../model/prismaInit.js';
 
@@ -51,22 +51,33 @@ usersRouter.get('/log-out', (req, res, next) => {
 		if (err) {
 			return next(err);
 		}
-		res.redirect('/');
-	});
-	//clears session on server
-	req.session.destroy((err) => {
-		if (err) return next(err);
-		//clears cookie on client
-		res.clearCookie('connect.sid');
-		res.redirect('/');
+		//clears session on server
+		req.session.destroy((err) => {
+			if (err) return next(err);
+			//clears cookie on client
+			res.clearCookie('connect.sid');
+			res.redirect('/');
+		});
 	});
 });
 
 //pass in authentication middleware
-usersRouter.get('/:user/files', (req: Request, res: Response, next) => {
-	const username = req.params.user;
-	res.render('userFiles', { title: `${username}'s Files` });
-});
+usersRouter.get(
+	'/:user/files',
+	(req: Request, res: Response, next: NextFunction) => {
+		if (
+			!req.isAuthenticated() ||
+			(req.user as any).username !== req.params.user
+		) {
+			return res
+				.status(403)
+				.send('Forbidden: You can only access your own profile.');
+		}
+		const username = req.params.user;
+
+		res.render('userFiles', { title: `${username}'s Files` });
+	},
+);
 
 //in http get requests dont have a body
 usersRouter.get('/', (req: Request, res: Response) => {
