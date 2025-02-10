@@ -18,22 +18,6 @@ app.use(morgan('combined'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(import.meta.dirname, '../src/views'));
 
-//here we will use a session secret for security
-app.use(
-	session({
-		cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
-		secret: process.env.SESSION_SECRET,
-		resave: true,
-		saveUninitialized: true,
-		store: new PrismaSessionStore(new PrismaClient(), {
-			checkPeriod: 2 * 60 * 1000,
-			dbRecordIdIsSessionId: true,
-			dbRecordIdFunction: undefined,
-		}),
-	}),
-);
-app.use(passport.session());
-
 app.use(express.urlencoded({ extended: false }));
 //add file/files object to the request object
 
@@ -44,6 +28,21 @@ app.use((req, res, next) => {
 	next();
 });
 
+//here we will use a session secret for security
+app.use(
+	session({
+		cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
+		secret: process.env.SESSION_SECRET,
+		resave: false,
+		saveUninitialized: false,
+		store: new PrismaSessionStore(new PrismaClient(), {
+			checkPeriod: 2 * 60 * 1000,
+			dbRecordIdIsSessionId: true,
+			dbRecordIdFunction: undefined,
+		}),
+	}),
+);
+app.use(passport.session());
 app.use('/', usersRouter);
 
 const PORT = process.env.PORT || 3001;

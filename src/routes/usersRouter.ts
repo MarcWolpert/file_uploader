@@ -63,13 +63,10 @@ usersRouter.get('/log-out', (req, res, next) => {
 });
 
 //pass in authentication middleware
-usersRouter.get(
-	'/:user/files',
-	getAuthentication,
-	(req: Request, res: Response, next) => {
-		res.render('userFiles', { title: 'Your Files' });
-	},
-);
+usersRouter.get('/:user/files', (req: Request, res: Response, next) => {
+	const username = req.params.user;
+	res.render('userFiles', { title: `${username}'s Files` });
+});
 
 //in http get requests dont have a body
 usersRouter.get('/', (req: Request, res: Response) => {
