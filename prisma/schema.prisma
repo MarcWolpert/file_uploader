@@ -14,18 +14,17 @@ datasource db {
 }
 
 model User {
-  id            Int             @id @default(autoincrement())
-  username      String          @unique
-  password      String
-  CookieSession CookieSession[]
-  Files         Files[]
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  password String
+  Files    Files[]
 }
 
-model CookieSession {
-  id      Int    @id @default(autoincrement())
-  session String
-  user_id Int
-  user    User   @relation(fields: [user_id], references: [id])
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 }
 
 model Files {

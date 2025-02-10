@@ -6,13 +6,20 @@ import { prisma } from '../model/prismaInit.js';
 
 export const usersRouter = Router();
 
+function getAuthentication(req: Request, res: Response, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect('/');
+}
+
 //routing
 usersRouter.get('/sign-up', (req: Request, res: Response) => {
 	res.render('sign-up', { title: 'Sign Up' });
 });
 
 //add users to our database
-usersRouter.post('/sign-up', async (req, res, next) => {
+usersRouter.post('/sign-up', async (req: Request, res: Response, next) => {
 	//need to encrypt these
 	try {
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -27,12 +34,16 @@ usersRouter.post('/sign-up', async (req, res, next) => {
 		return next(err);
 	}
 });
-usersRouter.post('/log-in', (req: Request, res: Response) => {
-	const user = req.body.user;
-	passport.authenticate('local', {
-		successRedirect: '/:user/files',
-		failureRedirect: '/',
-	});
+usersRouter.post('/log-in', (req, res, next) => {
+	passport.authenticate('local', (err, user, info) => {
+		if (err) return next(err);
+		if (!user) return res.redirect('/'); // handle failure appropriately
+		req.logIn(user, (err) => {
+			// establish session if needed
+			if (err) return next(err);
+			return res.redirect(`/${user.username}/files`);
+		});
+	})(req, res, next);
 });
 
 usersRouter.get('/log-out', (req, res, next) => {
@@ -42,13 +53,28 @@ usersRouter.get('/log-out', (req, res, next) => {
 		}
 		res.redirect('/');
 	});
+	//clears session on server
+	req.session.destroy((err) => {
+		if (err) return next(err);
+		//clears cookie on client
+		res.clearCookie('connect.sid');
+		res.redirect('/');
+	});
 });
 
-usersRouter.get('/:username/files', (req: Request, res: Response) => {
-	res.render('userFiles', { title: 'Your Files' });
-});
+//pass in authentication middleware
+usersRouter.get(
+	'/:user/files',
+	getAuthentication,
+	(req: Request, res: Response, next) => {
+		res.render('userFiles', { title: 'Your Files' });
+	},
+);
 
 //in http get requests dont have a body
 usersRouter.get('/', (req: Request, res: Response) => {
-	res.render('index', { title: 'Homepage', user: req.user });
+	res.render('index', {
+		title: 'Homepage',
+		user: req.user ? req.user?.username : null,
+	});
 });

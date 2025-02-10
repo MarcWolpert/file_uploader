@@ -9,6 +9,8 @@ import { passport_init as passport } from './authentication/auth.js';
 import bcrypt from 'bcryptjs';
 import { usersRouter } from './routes/usersRouter.js';
 import morgan from 'morgan';
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import { PrismaClient } from '@prisma/client';
 
 //setup middleware
 const app = express();
@@ -19,12 +21,19 @@ app.set('views', path.join(import.meta.dirname, '../src/views'));
 //here we will use a session secret for security
 app.use(
 	session({
+		cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
 		secret: process.env.SESSION_SECRET,
-		resave: false,
-		saveUninitialized: false,
+		resave: true,
+		saveUninitialized: true,
+		store: new PrismaSessionStore(new PrismaClient(), {
+			checkPeriod: 2 * 60 * 1000,
+			dbRecordIdIsSessionId: true,
+			dbRecordIdFunction: undefined,
+		}),
 	}),
 );
 app.use(passport.session());
+
 app.use(express.urlencoded({ extended: false }));
 //add file/files object to the request object
 
