@@ -20,9 +20,6 @@ h1 {
 #uploadForm {
 	margin: 1rem;
 }
-
-#downloadForm {
-}
 .uploadDownloadContainer {
 	position: relative;
 	display: flex;
@@ -55,26 +52,31 @@ h1 {
 }
 
 form {
+	width: inherit;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	width: auto;
 	ul {
+		width: 60ch;
 		border: 1px solid black;
 		display: flex;
 		flex-direction: row;
 		text-align: center;
 		list-style-type: none;
-		gap: 15px;
-		/* grid-template-columns: repeat(auto-fit, minmax(30px, 1fr)); */
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
 		> * {
 			align-self: center;
 			> * {
 				align-self: center;
 			}
 		}
-		.itemDate {
-			width: 20ch;
+		input {
+			width: 2rem;
+			align-self: center;
 		}
 	}
 	h2 {
@@ -114,7 +116,9 @@ a {
 		/* background-color: red; */
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
-		max-width: 70vw;
+		max-width: 90vw;
+		justify-content: space-around;
+		align-items: center;
 		> * {
 			align-self: center;
 		}

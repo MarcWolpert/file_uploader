@@ -26,8 +26,6 @@
 						method="POST"
 						enctype="multipart/form-data"
 					>
-						<label for="filepath">File Path: </label>
-						<input type="text" name="filepath" id="filepath" placeholder="Default is current directory"/>
 						<label for="filebytes">File:</label>
 						<input type="file" name="filebytes" id="filebytes" />
 						<button type="submit">Upload File</button>
@@ -37,11 +35,12 @@
                             <% for (const file of files) {%>
                                 <ul>
                                     <li class="itemName"><%=file.name %></li>
-                                    <li class="itemSize"><%=String(file.size / 10**6) + 'MB' %></li>
+                                    <li class="itemSize"><%=String(Number(file.size / 10**6).toFixed(2)) + 'MB' %></li>
                                     <li class="itemDate"><%=file.uploadTime %></li>
                                     <li class="itemType"><%="File" %></li>
                                     <!-- need to put id as the one to download -->
-                                    <input id=""type="checkbox" />
+                                    <input name="download-<%=file.id%>"type="checkbox" />
+                                    <input class='deleteItem' name="delete-<%=file.id%>"type="checkbox" />
                                 </ul>
                             <% } %>
                        <% } %>

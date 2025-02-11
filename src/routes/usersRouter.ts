@@ -192,6 +192,7 @@ usersRouter.get(
 		console.log(req.userFiles);
 		const revisedFiles = req.userFiles.map((item: UserFiles) => {
 			const date = item.uploadTime.toDateString();
+			console.log(date);
 			return { ...item, uploadTime: date };
 		});
 
