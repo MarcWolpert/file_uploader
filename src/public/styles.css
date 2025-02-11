@@ -1,0 +1,140 @@
+body {
+	color: black;
+	background-color: white;
+	display: block;
+}
+h1 {
+	text-align: center;
+}
+#uploadForm {
+	input {
+		margin-top: 1rem;
+	}
+}
+#logoutLink {
+	position: absolute;
+	bottom: 1rem;
+	left: 1rem;
+}
+#downloadForm,
+#uploadForm {
+	margin: 1rem;
+}
+
+#downloadForm {
+}
+.uploadDownloadContainer {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+	min-width: 400px;
+	border: 1px solid black;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	#pathName {
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		> * {
+			display: inline-block;
+		}
+	}
+	.uploadContainer {
+		h2 {
+			text-align: center;
+		}
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+		border: 1px solid black;
+		/* min-width: 45ch; */
+	}
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	ul {
+		border: 1px solid black;
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+		list-style-type: none;
+		gap: 15px;
+		/* grid-template-columns: repeat(auto-fit, minmax(30px, 1fr)); */
+		> * {
+			align-self: center;
+			> * {
+				align-self: center;
+			}
+		}
+		.itemDate {
+			width: 20ch;
+		}
+	}
+	h2 {
+		text-align: center;
+	}
+	> * {
+		width: 40ch;
+	}
+	button {
+		margin-top: 1rem;
+		width: 25ch;
+	}
+	input {
+		margin-bottom: 1rem;
+		width: 25ch;
+	}
+}
+a {
+	float: left;
+	/* position: absolute;
+	top: 0;
+	left: 0; */
+	margin: 1rem;
+}
+
+@media screen and (max-width: 680px) {
+	.itemDescriptionContainer {
+		/* background-color: blue; */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+@media screen and (min-width: 681px) {
+	.itemDescriptionContainer {
+		/* background-color: red; */
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
+		max-width: 70vw;
+		> * {
+			align-self: center;
+		}
+	}
+	#uploadForm {
+		padding-right: 15rem;
+		padding-left: 5rem;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	:root {
+		font-size: 3vmin;
+	}
+	* {
+		margin-left: 0rem;
+		margin-right: 0rem;
+	}
+	* > * {
+		margin-left: 0rem;
+		margin-right: 0rem;
+	}
+}

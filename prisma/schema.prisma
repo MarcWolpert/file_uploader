@@ -35,9 +35,12 @@ model Files {
   file       Bytes
   //pathname/name will be used to store the file in the server
   path       String
+  //name is the name, whereas path+name is the full path
   name       String
   size       Float
   uploadTime DateTime @default(now())
+  //folderId will be the filter for a specific folder
+  folderId   Int?
 
   @@unique([path, name, userId])
 }

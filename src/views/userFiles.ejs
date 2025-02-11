@@ -13,43 +13,42 @@
 	<body>
 		<h1><%=title %></h1>
 		<h1><%= `Welcome back `%></h1>
-		<div class="uploadListContainer">
-			<div class="uploadContainer">
-				<h2>Upload File</h2>
-				<form
-					action="/upload-files"
-					method="POST"
-					enctype="multipart/form-data"
-				>
-					<label for="filepath">File Path: </label>
-					<input type="text" name="filepath" id="filepath" />
-					<label for="filebytes">File:</label>
-					<input type="file" name="filebytes" id="filebytes" />
-					<button type="submit">Submit</button>
-				</form>
-			</div>
-			<div class="listContainer">
+		<div class="uploadDownloadContainer">
 				<!-- Going to mock the user functionality -->
-				<a href="/up-1-direct">...</a>
-				<div class="itemDescriptionContainer">
-					<ul>
-						<li><a href="">1Name</a></li>
-						<li>4 MB</li>
-						<li>2025/01/25 2PM GMT</li>
-					</ul>
-					<ul>
-						<li><a href="">2Name</a></li>
-						<li>4 MB</li>
-						<li>2025/01/25 2PM GMT</li>
-					</ul>
-					<ul>
-						<li><a href="">3Name</a></li>
-						<li>4 MB</li>
-						<li>2025/01/25 2PM GMT</li>
-					</ul>
+				<div id="pathName">
+					<a class="up1Direct" href="/up-1-direct">...</a>
+					<p>/usr/home/here</p>
 				</div>
+				<div class="itemDescriptionContainer">
+                    <form
+                    id="uploadForm"
+						action="/upload-files"
+						method="POST"
+						enctype="multipart/form-data"
+					>
+						<label for="filepath">File Path: </label>
+						<input type="text" name="filepath" id="filepath" placeholder="Default is current directory"/>
+						<label for="filebytes">File:</label>
+						<input type="file" name="filebytes" id="filebytes" />
+						<button type="submit">Upload File</button>
+					</form>
+					<form  id='downloadForm'action="/download-items" method="GET">
+						<%if (files){ %>
+                            <% for (const file of files) {%>
+                                <ul>
+                                    <li class="itemName"><%=file.name %></li>
+                                    <li class="itemSize"><%=String(file.size / 10**6) + 'MB' %></li>
+                                    <li class="itemDate"><%=file.uploadTime %></li>
+                                    <li class="itemType"><%="File" %></li>
+                                    <!-- need to put id as the one to download -->
+                                    <input id=""type="checkbox" />
+                                </ul>
+                            <% } %>
+                       <% } %>
+                        <button type='submit'>Download Files</button>
+					</form>
+					
 			</div>
-		</div>
-		<a href="/log-out" method="GET">Log out here</a>
+		<a id='logoutLink' href="/log-out" method="GET">Log out here</a>
 	</body>
 </html>
