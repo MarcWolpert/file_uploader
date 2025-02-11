@@ -11,6 +11,7 @@ import { usersRouter } from './routes/usersRouter.js';
 import morgan from 'morgan';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaClient } from '@prisma/client';
+import multer from 'multer';
 
 //setup middleware
 const app = express();

@@ -29,13 +29,15 @@ model Session {
 
 model Files {
   id         Int      @id @default(autoincrement())
+  //userId will be the join key for the User model
   userId     Int
   User       User?    @relation(fields: [userId], references: [id])
   file       Bytes
-  name       String   @unique
+  //pathname/name will be used to store the file in the server
+  path       String
+  name       String
   size       Float
   uploadTime DateTime @default(now())
-  path       String
 
   @@unique([path, name, userId])
 }

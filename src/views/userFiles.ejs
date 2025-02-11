@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title><%= title %></title>
+		<link rel="stylesheet" href="/styles.css" />
+	</head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= title %></title>
-</head>
-
-<body>
-  <h1><%=title %></h1>
-  <% if (true) { %>
-  <h1>
-    <%= `Welcome back `%>
-  </h1>
-  <%}%>
-  <a href="/log-out" method="GET">Log out here</a>
-
+	<body>
+		<h1><%=title %></h1>
+		<h1><%= `Welcome back `%></h1>
+		<div class="uploadListContainer">
+			<div class="uploadContainer">
+				<h2>Upload File</h2>
+				<form
+					action="/upload-files"
+					method="POST"
+					enctype="multipart/form-data"
+				>
+					<label for="filepath">File Path: </label>
+					<input type="text" name="filepath" id="filepath" />
+					<label for="filebytes">File:</label>
+					<input type="file" name="filebytes" id="filebytes" />
+					<button type="submit">Submit</button>
+				</form>
+			</div>
+			<div class="listContainer">
+                <!-- Going to mock the user functionality -->
+            </div>
+		</div>
+		<a href="/log-out" method="GET">Log out here</a>
 	</body>
-
 </html>
