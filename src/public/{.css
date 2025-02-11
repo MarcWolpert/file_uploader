@@ -28,6 +28,15 @@ h1 {
 		width: 40vw;
 		min-width: 45ch;
 		border: 1px solid black;
+		.itemDescriptionContainer {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			ul {
+				list-style-type: none;
+			}
+		}
 	}
 }
 form {

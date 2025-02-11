@@ -22,7 +22,15 @@ app.set('views', path.join(import.meta.dirname, '../src/views'));
 app.use(express.urlencoded({ extended: false }));
 //add file/files object to the request object
 
-app.use(express.static(path.join(process.cwd(), 'src/public/')));
+app.use(
+	express.static(path.join(process.cwd(), 'src/public/'), {
+		setHeaders: function (res, path) {
+			if (path.endsWith('.css')) {
+				res.set('Content-Type', 'text/css');
+			}
+		},
+	}),
+);
 
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
